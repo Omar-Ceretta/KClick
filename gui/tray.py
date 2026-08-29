@@ -1,37 +1,58 @@
 """
 gui/tray.py
 -----------
-Icona nel pannello di sistema (system tray). Disegniamo noi stessi
-due semplici icone (pallino verde/grigio) con QPainter, così non
-serve nessun file immagine esterno da distribuire col progetto.
+Icona nel pannello di sistema (system tray).
+
+Lo stato di KClick viene comunicato dalla forma dell'icona, non dal colore:
+- attivo: icona KClick normale;
+- in pausa: stessa icona con segno di cancellazione.
+
+Sono previste varianti dedicate per pannelli chiari e scuri.
 
 Click sinistro  -> toggle on/off
 Click destro    -> menu contestuale (Impostazioni / Esci)
 """
 from __future__ import annotations
-from PySide6.QtCore import Qt, QSize
-from PySide6.QtGui import QIcon, QPixmap, QPainter, QColor, QAction
-from PySide6.QtWidgets import QSystemTrayIcon, QMenu, QApplication
+
+from pathlib import Path
+
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QAction, QIcon, QPalette
+from PySide6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 
 
-def _make_dot_icon(color: QColor) -> QIcon:
-    size = QSize(64, 64)
-    pixmap = QPixmap(size)
-    pixmap.fill(Qt.transparent)
-    painter = QPainter(pixmap)
-    painter.setRenderHint(QPainter.Antialiasing)
-    painter.setBrush(color)
-    painter.setPen(Qt.NoPen)
-    painter.drawEllipse(8, 8, 48, 48)
-    painter.end()
-    return QIcon(pixmap)
+_TRAY_ICONS_DIR = Path(__file__).resolve().parent / "icons" / "tray"
+
+
+def _is_dark_theme() -> bool:
+    """Restituisce True se il tema applicativo corrente è scuro."""
+    app = QApplication.instance()
+    if app is None:
+        return False
+
+    scheme = app.styleHints().colorScheme()
+
+    if scheme == Qt.ColorScheme.Dark:
+        return True
+    if scheme == Qt.ColorScheme.Light:
+        return False
+
+    # Fallback per piattaforme che restituiscono ColorScheme.Unknown.
+    window_color = app.palette().color(QPalette.Window)
+    return window_color.lightness() < 128
+
+
+def _tray_icon(enabled: bool) -> QIcon:
+    """Carica l'icona tray adatta a stato e tema correnti."""
+    state = "on" if enabled else "off"
+    theme = "dark" if _is_dark_theme() else "light"
+    path = _TRAY_ICONS_DIR / f"kclick-tray-{state}-{theme}.png"
+    return QIcon(str(path))
 
 
 class TrayIcon(QSystemTrayIcon):
     def __init__(self, config, audio_engine, open_settings_callback, parent=None):
-        self._icon_on = _make_dot_icon(QColor("#2ecc71"))   # verde
-        self._icon_off = _make_dot_icon(QColor("#7f8c8d"))  # grigio
-        super().__init__(self._icon_on if config.enabled else self._icon_off, parent)
+        super().__init__(_tray_icon(config.enabled), parent)
 
         self.config = config
         self.audio = audio_engine
@@ -40,11 +61,21 @@ class TrayIcon(QSystemTrayIcon):
         self.setToolTip("KClick")
         self._build_menu()
         self.activated.connect(self._on_activated)
+
+        app = QApplication.instance()
+        if app is not None:
+            app.styleHints().colorSchemeChanged.connect(
+                self._on_color_scheme_changed
+            )
+
         self._refresh_icon()
 
     def _build_menu(self) -> None:
         menu = QMenu()
-        self._toggle_action = QAction("Disattiva" if self.config.enabled else "Attiva", self)
+        self._toggle_action = QAction(
+            "Disattiva" if self.config.enabled else "Attiva",
+            self,
+        )
         self._toggle_action.triggered.connect(self.toggle)
         menu.addAction(self._toggle_action)
 
@@ -65,12 +96,19 @@ class TrayIcon(QSystemTrayIcon):
         if reason == QSystemTrayIcon.Trigger:
             self.toggle()
 
+    def _on_color_scheme_changed(self, _scheme) -> None:
+        self._refresh_icon()
+
     def toggle(self) -> None:
         self.config.enabled = not self.config.enabled
         self.config.save()
         self._refresh_icon()
 
     def _refresh_icon(self) -> None:
-        self.setIcon(self._icon_on if self.config.enabled else self._icon_off)
-        self._toggle_action.setText("Disattiva" if self.config.enabled else "Attiva")
-        self.setToolTip("KClick — attivo" if self.config.enabled else "KClick — in pausa")
+        self.setIcon(_tray_icon(self.config.enabled))
+        self._toggle_action.setText(
+            "Disattiva" if self.config.enabled else "Attiva"
+        )
+        self.setToolTip(
+            "KClick — attivo" if self.config.enabled else "KClick — in pausa"
+        )
