@@ -1,0 +1,12 @@
+<svg width="340" height="220" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
+<rect width="340" height="220" rx="24" fill="#E1F5EE"/>
+<g transform="translate(72,14)">
+  <path d="M48 50 Q98 10 148 50" fill="none" stroke="#04342C" stroke-width="7" stroke-linecap="round"/>
+  <path d="M63 80 Q98 50 133 80" fill="none" stroke="#04342C" stroke-width="5" stroke-linecap="round"/>
+  <path d="M78 108 Q98 88 118 108" fill="none" stroke="#04342C" stroke-width="3" stroke-linecap="round"/>
+  <rect x="58" y="136" width="90" height="46" rx="10" fill="#04342C"/>
+  <rect x="53" y="126" width="90" height="46" rx="10" fill="#EAF6F1" stroke="#04342C" stroke-width="2.5"/>
+  <rect x="63" y="133" width="70" height="4" rx="2" fill="#FFFFFF" fill-opacity="0.8"/>
+  <text x="98" y="159" font-size="28" font-weight="500" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" fill="#04342C">K</text>
+</g>
+</svg>

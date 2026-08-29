@@ -1,0 +1,10 @@
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+<rect width="256" height="256" rx="24" fill="#E1F5EE"/>
+<path d="M61 64 Q125 13 189 64" fill="none" stroke="#04342C" stroke-width="9" stroke-linecap="round"/>
+<path d="M81 102 Q125 64 170 102" fill="none" stroke="#04342C" stroke-width="6" stroke-linecap="round"/>
+<path d="M100 138 Q125 113 151 138" fill="none" stroke="#04342C" stroke-width="4" stroke-linecap="round"/>
+<rect x="74" y="174" width="115" height="59" rx="13" fill="#04342C"/>
+<rect x="68" y="161" width="115" height="59" rx="13" fill="#EAF6F1" stroke="#04342C" stroke-width="3"/>
+<rect x="81" y="170" width="90" height="5" rx="3" fill="#FFFFFF" fill-opacity="0.8"/>
+<text x="125" y="204" font-size="36" font-weight="500" font-family="Georgia, 'Times New Roman', serif" text-anchor="middle" fill="#04342C">K</text>
+</svg>
