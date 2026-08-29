@@ -34,8 +34,8 @@ def _launch_command() -> str:
         if pythonw.exists():
             python_bin = pythonw
 
-    main_py = PROJECT_DIR / "main.py"
-    return subprocess.list2cmdline([str(python_bin), str(main_py)])
+    entrypoint = PROJECT_DIR / "kclick.py"
+    return subprocess.list2cmdline([str(python_bin), str(entrypoint)])
 
 
 def install_and_enable() -> None:

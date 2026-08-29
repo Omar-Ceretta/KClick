@@ -16,12 +16,12 @@ SYSTEMD_USER_DIR = Path.home() / ".config" / "systemd" / "user"
 SERVICE_NAME = "kclick.service"
 SERVICE_PATH = SYSTEMD_USER_DIR / SERVICE_NAME
 
-PROJECT_DIR = Path(__file__).resolve().parents[2]  # radice del progetto, dove sta main.py
+PROJECT_DIR = Path(__file__).resolve().parents[2]  # radice del progetto, dove sta kclick.py
 
 
 def _service_content() -> str:
     python_bin = sys.executable  # es. /home/omar/KClick/.venv/bin/python
-    main_py = PROJECT_DIR / "main.py"
+    entrypoint = PROJECT_DIR / "kclick.py"
     return f"""[Unit]
 Description=KClick - suoni da macchina da scrivere
 After=graphical-session.target
@@ -29,7 +29,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart={python_bin} {main_py}
+ExecStart={python_bin} {entrypoint}
 Restart=on-failure
 RestartSec=3
 

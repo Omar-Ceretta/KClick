@@ -16,13 +16,13 @@ import json
 from dataclasses import dataclass, asdict, field
 from pathlib import Path
 
-# .parent = core/, .parent.parent = radice del progetto (dove sta main.py)
+# .parent = core/, .parent.parent = radice del progetto (dove sta kclick.py)
 CORE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = CORE_DIR.parent
 
 CONFIG_FILE = CORE_DIR / "config.json"
 
-# Cartella dove main.py cerca i soundpack installati (resta in radice,
+# Cartella dove kclick.py cerca i soundpack installati (resta in radice,
 # non dentro core/, perché non è "logica" ma contenuto/risorse).
 SOUNDPACKS_DIR = PROJECT_ROOT / "soundpacks"
 
