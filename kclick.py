@@ -26,6 +26,7 @@ sys.pycache_prefix = str(Path.home() / ".cache" / "kclick" / "pycache")
 
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtCore import QTimer
+from PySide6.QtGui import QIcon
 
 from core.config import Config
 from core.audio_engine import AudioEngine
@@ -38,6 +39,19 @@ from gui.main_window import SettingsWindow
 def main() -> int:
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)  # la finestra impostazioni si chiude, l'app resta nel tray
+
+    app_icon_path = (
+        Path(__file__).resolve().parent
+        / "gui"
+        / "icons"
+        / "launcher"
+        / "kclick-icon-launcher.svg"
+    )
+    app_icon = QIcon(str(app_icon_path))
+    if app_icon.isNull():
+        print(f"[KClick] Icona applicazione non trovata o non valida: {app_icon_path}")
+    else:
+        app.setWindowIcon(app_icon)
 
     cfg = Config.load()
     cfg.save()  # crea subito core/config.json anche al primissimo avvio, con i valori di default
