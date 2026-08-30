@@ -1,10 +1,9 @@
 """
 config.py
 ---------
-Un semplice contenitore di preferenze, salvato come JSON dentro
-core/config.json — cioè accanto a questo stesso file, così tutto lo
-stato dell'app resta dentro la cartella del programma (nessun file
-sparso in giro per il sistema tipo ~/.config).
+Un semplice contenitore di preferenze, salvato come config.json nella
+radice di KClick, così lo stato dell'app resta dentro la cartella del
+programma (nessun file sparso in giro per il sistema tipo ~/.config).
 
 Uso tipico:
     cfg = Config.load()
@@ -16,15 +15,7 @@ import json
 from dataclasses import dataclass, asdict, field
 from pathlib import Path
 
-# .parent = core/, .parent.parent = radice del progetto (dove sta kclick.py)
-CORE_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = CORE_DIR.parent
-
-CONFIG_FILE = CORE_DIR / "config.json"
-
-# Cartella dove kclick.py cerca i soundpack installati (resta in radice,
-# non dentro core/, perché non è "logica" ma contenuto/risorse).
-SOUNDPACKS_DIR = PROJECT_ROOT / "soundpacks"
+from .app_paths import CONFIG_FILE, SOUNDPACKS_DIR
 
 
 @dataclass

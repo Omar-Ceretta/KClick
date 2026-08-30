@@ -14,14 +14,11 @@ Click destro    -> menu contestuale (Impostazioni / Esci)
 """
 from __future__ import annotations
 
-from pathlib import Path
-
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QAction, QIcon, QPalette
 from PySide6.QtWidgets import QApplication, QMenu, QSystemTrayIcon
 
-
-_TRAY_ICONS_DIR = Path(__file__).resolve().parent / "icons" / "tray"
+from core.app_paths import TRAY_ICONS_DIR
 
 
 def _is_dark_theme() -> bool:
@@ -46,7 +43,7 @@ def _tray_icon(enabled: bool) -> QIcon:
     """Carica l'icona tray adatta a stato e tema correnti."""
     state = "on" if enabled else "off"
     theme = "dark" if _is_dark_theme() else "light"
-    path = _TRAY_ICONS_DIR / f"kclick-tray-{state}-{theme}.png"
+    path = TRAY_ICONS_DIR / f"kclick-tray-{state}-{theme}.png"
     return QIcon(str(path))
 
 

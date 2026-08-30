@@ -12,16 +12,17 @@ import subprocess
 import sys
 from pathlib import Path
 
+from core.app_paths import APP_ROOT
+
 SYSTEMD_USER_DIR = Path.home() / ".config" / "systemd" / "user"
 SERVICE_NAME = "kclick.service"
 SERVICE_PATH = SYSTEMD_USER_DIR / SERVICE_NAME
 
-PROJECT_DIR = Path(__file__).resolve().parents[2]  # radice del progetto, dove sta kclick.py
 
 
 def _service_content() -> str:
     python_bin = sys.executable  # es. /home/omar/KClick/.venv/bin/python
-    entrypoint = PROJECT_DIR / "kclick.py"
+    entrypoint = APP_ROOT / "kclick.py"
     return f"""[Unit]
 Description=KClick - suoni da macchina da scrivere
 After=graphical-session.target

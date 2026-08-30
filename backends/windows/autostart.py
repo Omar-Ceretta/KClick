@@ -14,10 +14,11 @@ import sys
 from pathlib import Path
 import winreg
 
+from core.app_paths import APP_ROOT
+
 APP_NAME = "KClick"
 RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
 
-PROJECT_DIR = Path(__file__).resolve().parents[2]
 
 
 def _launch_command() -> str:
@@ -34,7 +35,7 @@ def _launch_command() -> str:
         if pythonw.exists():
             python_bin = pythonw
 
-    entrypoint = PROJECT_DIR / "kclick.py"
+    entrypoint = APP_ROOT / "kclick.py"
     return subprocess.list2cmdline([str(python_bin), str(entrypoint)])
 
 

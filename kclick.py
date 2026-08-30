@@ -9,25 +9,17 @@ Punto di ingresso. Ordine di avvio importante:
 4. GUI (tray + finestra impostazioni, gira nel thread principale)
 """
 import sys
-from pathlib import Path
 
-# ------------------------------------------------------------------
-# Pulizia del progetto: Python, ad ogni avvio, compila i moduli in
-# bytecode (.pyc) e li salverebbe in cartelle __pycache__ dentro
-# core/ e gui/. Con questa riga reindirizziamo TUTTA la cache in
-# ~/.cache/kclick/pycache (la posizione standard Linux per le cache),
-# mantenendo il vantaggio degli avvii veloci ma senza sporcare la
-# cartella del progetto.
-# IMPORTANTE: questa riga DEVE stare PRIMA degli import dei nostri
-# moduli (core, gui) e delle librerie, altrimenti per quelli già
-# importati la regola non si applica.
-# ------------------------------------------------------------------
-sys.pycache_prefix = str(Path.home() / ".cache" / "kclick" / "pycache")
+# KClick non scrive cache Python su disco: la cartella del programma
+# e la home dell'utente restano libere da __pycache__ e file .pyc.
+# Questa impostazione deve precedere gli import dei moduli dell'app.
+sys.dont_write_bytecode = True
 
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtCore import QTimer
 from PySide6.QtGui import QIcon
 
+from core.app_paths import LAUNCHER_ICON
 from core.config import Config
 from core.audio_engine import AudioEngine
 from core.input_controller import InputController
@@ -40,13 +32,7 @@ def main() -> int:
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)  # la finestra impostazioni si chiude, l'app resta nel tray
 
-    app_icon_path = (
-        Path(__file__).resolve().parent
-        / "gui"
-        / "icons"
-        / "launcher"
-        / "kclick-icon-launcher.svg"
-    )
+    app_icon_path = LAUNCHER_ICON
     app_icon = QIcon(str(app_icon_path))
     if app_icon.isNull():
         print(f"[KClick] Icona applicazione non trovata o non valida: {app_icon_path}")
@@ -54,7 +40,7 @@ def main() -> int:
         app.setWindowIcon(app_icon)
 
     cfg = Config.load()
-    cfg.save()  # crea subito core/config.json anche al primissimo avvio, con i valori di default
+    cfg.save()  # crea subito config.json anche al primissimo avvio, con i valori di default
 
     audio = AudioEngine(master_volume=cfg.master_volume)
     missing = audio.load_soundpack(cfg.soundpack_path())
