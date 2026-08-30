@@ -62,8 +62,8 @@ def main() -> int:
         print(f"[KClick] Categorie senza suoni nel pack '{cfg.soundpack}': {missing}")
         print("              (verranno riprodotti suoni 'generic' al loro posto, se presenti)")
 
-    # Se l'utente ha scelto l'autostart durante il primo avvio manuale,
-    # ci assicuriamo che il servizio systemd sia coerente con config.json.
+    # Manteniamo il meccanismo di autostart del sistema operativo
+    # coerente con la preferenza salvata in config.json.
     set_autostart(cfg.autostart)
 
     def _on_input_error(message: str) -> None:

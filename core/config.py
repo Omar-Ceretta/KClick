@@ -34,7 +34,7 @@ class Config:
     master_volume: float = 0.7    # 0.0 - 1.0
     every_n: int = 2              # suona 1 battitura ogni N (skip-count)
     debounce_ms: int = 40         # intervallo minimo tra due suoni, in ms
-    autostart: bool = True        # avvio automatico al login via systemd
+    autostart: bool = False       # avvio automatico al login (backend del sistema operativo)
 
     @classmethod
     def load(cls) -> "Config":

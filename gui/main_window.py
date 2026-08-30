@@ -2,13 +2,11 @@
 gui/main_window.py
 -------------------
 Finestra di impostazioni, minimale ma completa. Le modifiche si
-applicano "live" (il listener e l'audio_engine leggono self.config
+applicano "live" (InputController e AudioEngine leggono self.config
 in tempo reale), il pulsante Salva serve solo a rendere le
 preferenze persistenti su disco.
 """
 from __future__ import annotations
-from pathlib import Path
-
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QFormLayout, QComboBox, QSlider, QLabel,
     QCheckBox, QDialogButtonBox, QHBoxLayout, QWidget
@@ -23,7 +21,7 @@ class SettingsWindow(QDialog):
         super().__init__(parent)
         self.config = config
         self.audio = audio_engine
-        self.autostart_callback = autostart_callback  # funzione(bool) -> gestisce systemd
+        self.autostart_callback = autostart_callback  # funzione(bool) -> backend autostart della piattaforma
 
         self.setWindowTitle("KClick — Impostazioni")
         self.setMinimumWidth(360)

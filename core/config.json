@@ -3,6 +3,6 @@
   "soundpack": "default",
   "master_volume": 0.7,
   "every_n": 2,
-  "debounce_ms": 41,
+  "debounce_ms": 40,
   "autostart": false
 }
