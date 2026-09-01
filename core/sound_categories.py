@@ -18,5 +18,4 @@ ALL_CATEGORIES = [
     "capslock_on",
     "capslock_off",
     "printscreen",
-    "modifier",
 ]

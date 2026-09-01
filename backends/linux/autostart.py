@@ -21,7 +21,7 @@ SERVICE_PATH = SYSTEMD_USER_DIR / SERVICE_NAME
 
 
 def _service_content() -> str:
-    python_bin = sys.executable  # es. /home/omar/KClick/.venv/bin/python
+    python_bin = sys.executable  # es. /percorso/KClick/.venv/bin/python
     entrypoint = APP_ROOT / "kclick.py"
     return f"""[Unit]
 Description=KClick - suoni da macchina da scrivere

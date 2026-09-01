@@ -12,7 +12,7 @@ Uso tipico:
 """
 from __future__ import annotations
 import json
-from dataclasses import dataclass, asdict, field
+from dataclasses import dataclass, asdict
 from pathlib import Path
 
 from .app_paths import CONFIG_FILE, SOUNDPACKS_DIR
@@ -21,7 +21,7 @@ from .app_paths import CONFIG_FILE, SOUNDPACKS_DIR
 @dataclass
 class Config:
     enabled: bool = True          # stato on/off del suono (persiste tra i riavvii)
-    soundpack: str = "default"    # nome sottocartella in soundpacks/
+    soundpack: str = "KClick Classic"    # nome sottocartella in soundpacks/
     master_volume: float = 0.7    # 0.0 - 1.0
     every_n: int = 2              # suona 1 battitura ogni N (skip-count)
     debounce_ms: int = 40         # intervallo minimo tra due suoni, in ms
