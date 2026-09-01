@@ -30,8 +30,6 @@ Campioni utilizzati:
   - origine: `alpaca/press/SPACE.mp3`
 - `backspace/backspace.wav`
   - origine: `alpaca/press/BACKSPACE.mp3`
-- `shift/shift.wav`
-  - origine: `alpaca/release/ENTER.mp3`
 
 I file sono stati convertiti in WAV PCM 16-bit / 44,1 kHz e bilanciati in
 livello per l'integrazione nel soundpack.
@@ -104,25 +102,40 @@ SOFTWARE.
 
 ---
 
-## 3. Freesound — cookies+policy
+## 3. sound-theme-freedesktop
 
-Autore: **cookies+policy**  
-Titolo originale: **Toggle switch On Off**  
-Freesound sound ID: **556636**  
-Pagina sorgente: https://freesound.org/people/cookies%2Bpolicy/sounds/556636/  
-Licenza: **CC0 1.0 / Public Domain**
+Progetto / pacchetto: **sound-theme-freedesktop**  
+Versione di riferimento: **0.8**  
+Autore / copyright dei campioni utilizzati: **Ivica Bukvic**  
+Progetto upstream: https://www.freedesktop.org/wiki/Specifications/sound-theme-spec/  
+Licenza dei campioni utilizzati: **Creative Commons Attribution-ShareAlike 3.0
+Unported (CC BY-SA 3.0)**  
+Testo della licenza: https://creativecommons.org/licenses/by-sa/3.0/
 
-Campioni derivati:
+Campioni utilizzati:
 
 - `capslock_on/capslock_on.wav`
+  - origine: `stereo/device-added.oga`
 - `capslock_off/capslock_off.wav`
+  - origine: `stereo/device-removed.oga`
+- `shift/shift.wav`
+  - origine: `stereo/dialog-information.oga`
 
-Il file originale conteneva due azioni distinte del toggle. Le due azioni
-sono state separate, ritagliate, convertite in WAV PCM 16-bit / 44,1 kHz e
-bilanciate in livello.
+I tre campioni originali sono distribuiti in `sound-theme-freedesktop` con
+copyright di Ivica Bukvic e licenza CC BY-SA 3.0.
 
-La licenza CC0 non richiede attribuzione, ma la sorgente viene indicata qui
-volontariamente per trasparenza e tracciabilità.
+Per KClick sono stati convertiti dal formato Ogg/Vorbis (`.oga`) a WAV PCM
+16-bit / 44,1 kHz, preservando i canali stereo. Il livello è stato adattato
+al resto di KClick Classic:
+
+- `capslock_on/capslock_on.wav`: picco portato a circa **-12 dB**;
+- `capslock_off/capslock_off.wav`: picco portato a circa **-12 dB**;
+- `shift/shift.wav`: picco portato a circa **-17 dB**.
+
+Non sono state applicate altre modifiche timbriche ai tre campioni.
+
+Le versioni adattate distribuite con KClick restano soggette alla licenza
+**CC BY-SA 3.0** e sono attribuite a **Ivica Bukvic**.
 
 ---
 
@@ -148,16 +161,17 @@ volontariamente per trasparenza e tracciabilità.
 
 ## Riepilogo
 
-| Categoria KClick | Sorgente |
-| --- | --- |
-| `generic` | kbsim — Alpaca, Cream, MX Brown, Turquoise |
-| `space` | kbsim — Alpaca `press/SPACE` |
-| `backspace` | kbsim — Alpaca `press/BACKSPACE` |
-| `shift` | kbsim — Alpaca `release/ENTER` |
-| `enter` | daktilo — `ding.mp3` |
-| `tab` | daktilo — `kick.mp3` |
-| `capslock_on` / `capslock_off` | Freesound — cookies+policy, sound 556636 |
-| `printscreen` | Freesound — Qat, sound 108334 |
+| Categoria KClick | Sorgente | Licenza |
+| --- | --- | --- |
+| `generic` | kbsim — Alpaca, Cream, MX Brown, Turquoise | MIT |
+| `space` | kbsim — Alpaca `press/SPACE` | MIT |
+| `backspace` | kbsim — Alpaca `press/BACKSPACE` | MIT |
+| `shift` | sound-theme-freedesktop — `dialog-information.oga` | CC BY-SA 3.0 |
+| `enter` | daktilo — `ding.mp3` | MIT |
+| `tab` | daktilo — `kick.mp3` | MIT |
+| `capslock_on` | sound-theme-freedesktop — `device-added.oga` | CC BY-SA 3.0 |
+| `capslock_off` | sound-theme-freedesktop — `device-removed.oga` | CC BY-SA 3.0 |
+| `printscreen` | Freesound — Qat, sound 108334 | CC0 1.0 |
 
-Tutti i file distribuiti con KClick Classic sono stati selezionati da sorgenti
-con licenze compatibili con la redistribuzione.
+Tutti i file distribuiti con KClick Classic provengono da sorgenti con licenze
+che ne consentono la redistribuzione alle condizioni indicate sopra.
