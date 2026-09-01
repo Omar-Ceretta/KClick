@@ -1,0 +1,25 @@
+# Ambiente Python
+.venv/
+
+# Bytecode e cache Python
+__pycache__/
+*.py[cod]
+
+# Configurazione locale dell'utente
+config.json
+
+# Cache strumenti di sviluppo
+.pytest_cache/
+.ruff_cache/
+
+# Output di build
+build/
+dist/
+
+# Residui editor / sistema
+*~
+.DS_Store
+Thumbs.db
+
+# Metadati Dolphin
+.directory
